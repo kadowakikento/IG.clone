@@ -1,4 +1,6 @@
 <p id="notice"><%= notice %></p>
+<%= link_to '投稿する', new_picture_path %>
+<%= link_to 'お気に入り一覧', favorites_path %>
 
 <h1>投稿一覧</h1>
 
@@ -19,14 +21,11 @@
         <td><%= picture.content %></td>
         <td><%= image_tag picture.image.url %></td>
         <td><%= link_to '確認', picture %></td>
+    <% if picture.user == current_user %>
         <td><%= link_to '編集', edit_picture_path(picture) %></td>
         <td><%= link_to '削除', picture, method: :delete, data: { confirm: '本当に削除しますか?' } %></td>
       </tr>
     <% end %>
+    <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to '投稿する', new_picture_path %>
-<%= link_to 'お気に入り一覧', favorites_path %>

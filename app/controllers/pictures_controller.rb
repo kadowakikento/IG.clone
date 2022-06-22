@@ -1,5 +1,6 @@
 class PicturesController < ApplicationController
   before_action :set_picture, only: %i[ show edit update destroy ]
+  before_action :ensure_user, only: %i[ edit update destroy ]
 
   def index
     @pictures = Picture.all
@@ -42,11 +43,11 @@ class PicturesController < ApplicationController
   end
 
   def update
-      if @picture.update(picture_params)
-        redirect_to pictures_path, notice: "更新しました！" 
-      else
-        render :edit
-      end
+    if @picture.update(picture_params)
+      redirect_to pictures_path, notice: "更新しました！" 
+    else
+      render :edit
+    end
   end
 
   def destroy
@@ -58,6 +59,12 @@ class PicturesController < ApplicationController
   end
 
   private
+
+  def ensure_user
+    @pictures = current_user.pictures
+    @picture = @pictures.find_by(id: params[:id])
+    redirect_to new_session_path unless @picture
+  end
 
   def set_picture
     @picture = Picture.find(params[:id])

@@ -1,5 +1,7 @@
 <p id="notice"><%= notice %></p>
 
+<%= link_to '投稿一覧へ戻る', pictures_path %>
+
 <h1>お気に入りした投稿</h1>
 
 <table>
@@ -19,3 +21,5 @@
         <td><%= image_tag favorite.picture.image.url %></td>
       </tr>
 <% end %>
+
+
