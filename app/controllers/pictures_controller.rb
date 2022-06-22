@@ -19,19 +19,13 @@ class PicturesController < ApplicationController
   end
 
   def create
-    # @picture = Picture.new(picture_params)
-    # @picture[:user_id] = session[:user_id]
     @picture = current_user.pictures.build(picture_params)
-    
-    respond_to do |format|
       if @picture.save
-        format.html { redirect_to picture_url(@picture), notice: "投稿しました！" }
-        format.json { render :show, status: :created, location: @picture }
+        ContactMailer.contact_mail(@picture).deliver
+        redirect_to pictures_path, notice: "投稿しました！" 
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @picture.errors, status: :unprocessable_entity }
+        render :new
       end
-    end
   end
 
   def confirm
