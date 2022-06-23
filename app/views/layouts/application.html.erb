@@ -22,6 +22,17 @@
       <%= link_to "ログイン", new_session_path %>
     <% end %>
     
-    <%= yield %>
+    
+    <div class="wrapper">
+      <header>
+        <h1 class="headline">
+          <a>思い出を投稿しよう！</a>
+      </header>
+
+      <%= yield %>
+      <footer class="footer">
+        <p>Copyright © instamodoki </p>
+      </footer>
+    </div>
   </body>
 </html>
